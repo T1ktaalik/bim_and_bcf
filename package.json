@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@xeokit/xeokit-sdk": "^2.6.94",
     "vue": "^3.5.22"
   },
   "devDependencies": {
@@ -16,6 +17,7 @@
     "@types/node": "^24.6.0",
     "@vitejs/plugin-vue": "^6.0.1",
     "@vue/tsconfig": "^0.8.1",
+    "@xeokit/xeokit-viewer": "^1.6.9",
     "tailwindcss": "^4.1.17",
     "tippy.js": "^6.3.7",
     "typescript": "~5.9.3",

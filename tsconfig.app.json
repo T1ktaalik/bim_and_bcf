@@ -12,5 +12,9 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue", "src/**/*.d.ts",]
+  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue", "src/**/*.d.ts",
+  // Type declarations
+    "src/**/*.d.ts",
+    "types/**/*.d.ts",
+    "env.d.ts",]
 }

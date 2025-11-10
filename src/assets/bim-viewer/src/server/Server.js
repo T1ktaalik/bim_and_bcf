@@ -13,10 +13,10 @@ class Server {
      * Constructs a Server.
      *
      * @param {*} [cfg] Server configuration.
-     * @param {String} [cfg.dataDir] Base directory for content.
+     * @param {String} [cfg.basePath] Base path for projects.
      */
     constructor(cfg = {}) {
-        this._dataDir = cfg.dataDir || "";
+        this._basePath = cfg.basePath || "/projects";
     }
 
     /**
@@ -26,7 +26,7 @@ class Server {
      * @param {Function} error Callback through which an error message is returned on error.
      */
     getProjects(done, error) {
-        const url = this._dataDir + "/projects/index.json";
+        const url = this._basePath + "/index.json";
         utils.loadJSON(url, done, error);
     }
 
@@ -38,7 +38,7 @@ class Server {
      * @param {Function} error Callback through which an error message is returned on error.
      */
     getProject(projectId, done, error) {
-        const url = this._dataDir + "/projects/" + projectId + "/index.json";
+        const url = this._basePath + "/" + projectId + "/index.json";
         utils.loadJSON(url, done, error);
     }
 
@@ -51,7 +51,7 @@ class Server {
      * @param {Function} error Callback through which an error message is returned on error.
      */
     getMetadata(projectId, modelId, done, error) {
-        const url = this._dataDir + "/projects/" + projectId + "/models/" + modelId + "/metadata.json";
+        const url = this._basePath + "/" + projectId + "/models/" + modelId + "/metadata.json";
         utils.loadJSON(url, done, error);
     }
 
@@ -64,7 +64,7 @@ class Server {
      * @param {Function} error Callback through which an error message is returned on error.
      */
     getGeometry(projectId, modelId, done, error) {
-        const url = this._dataDir + "/projects/" + projectId + "/models/" + modelId + "/geometry.xkt";
+        const url = this._basePath + "/" + projectId + "/models/" + modelId + "/geometry.xkt";
         utils.loadArraybuffer(url, done, error);
     }
 
@@ -78,7 +78,7 @@ class Server {
      * @param {Function} error Callback through which an error message is returned on error.
      */
     getObjectInfo(projectId, modelId, objectId, done, error) {
-        const url = this._dataDir + "/projects/" + projectId + "/models/" + modelId + "/props/" + objectId + ".json";
+        const url = this._basePath + "/" + projectId + "/models/" + modelId + "/props/" + objectId + ".json";
         utils.loadJSON(url, done, error);
     }
 
@@ -91,10 +91,9 @@ class Server {
      * @param {Function} error Callback through which an error message is returned on error.
      */
     getIssues(projectId, modelId, done, error) {
-        const url = this._dataDir + "/projects/" + projectId + "/models/" + modelId + "/issues.json";
+        const url = this._basePath + "/" + projectId + "/models/" + modelId + "/issues.json";
         utils.loadJSON(url, done, error);
     }
-
 
     /**
      * Gets a JSON manifest file for a model that's split into multiple XKT files (and maybe also JSON metadata files).
@@ -109,7 +108,7 @@ class Server {
      * @param {Function} error Callback through which an error message is returned on error.
      */
     getSplitModelManifest(projectId, modelId, manifestName, done, error) {
-        const url = this._dataDir + "/projects/" + projectId + "/models/" + modelId + "/" + manifestName;
+        const url = this._basePath + "/" + projectId + "/models/" + modelId + "/" + manifestName;
         utils.loadJSON(url, done, error);
     }
 
@@ -123,7 +122,7 @@ class Server {
      * @param {Function} error Callback through which an error message is returned on error.
      */
     getSplitModelMetadata(projectId, modelId, metadataFileName, done, error) {
-        const url = this._dataDir + "/projects/" + projectId + "/models/" + modelId + "/" + metadataFileName;
+        const url = this._basePath + "/" + projectId + "/models/" + modelId + "/" + metadataFileName;
         utils.loadJSON(url, done, error);
     }
 
@@ -132,12 +131,12 @@ class Server {
      *
      * @param {String} projectId ID of the project.
      * @param {String} modelId ID of the model.
-     *  @param {String} geometryFileName Filename of the XKT geometry file.
+     * @param {String} geometryFileName Filename of the XKT geometry file.
      * @param {Function} done Callback through which the JSON result is returned.
      * @param {Function} error Callback through which an error message is returned on error.
      */
     getSplitModelGeometry(projectId, modelId, geometryFileName, done, error) {
-        const url = this._dataDir + "/projects/" + projectId + "/models/" + modelId + "/" + geometryFileName;
+        const url = this._basePath + "/" + projectId + "/models/" + modelId + "/" + geometryFileName;
         utils.loadArraybuffer(url, done, error);
     }
 }

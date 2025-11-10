@@ -10,15 +10,17 @@ interface BIMViewerConfig {
   navCubeCanvasElement: HTMLCanvasElement | null;
   busyModelBackdropElement: HTMLElement | null;
   toolbarElement: HTMLElement | null;
+  localeService: any;
 }
 
 interface BIMServerConfig {
-  dataDir: string;
+  basePath: string;
 }
 
 export function useBIMViewer() {
   const bimViewer = ref<any | null>(null);
   const bimServer = ref<any | null>(null);
+  let localeServiceRef: any = null;
 
   /**
    * Инициализация BIM Viewer
@@ -28,17 +30,17 @@ export function useBIMViewer() {
     bimViewerConfig: BIMViewerConfig,
     saveViewpointCallback?: () => void
   ): Promise<boolean> => {
-    if (!bimServerConfig?.dataDir) {
-      console.error('BIM server config must include dataDir');
+    if (!bimServerConfig?.basePath) {
+      console.error('BIM server config must include basePath');
       return false;
     }
 
     try {
       // Динамический импорт (Vite поддерживает, но пути должны быть статичны!)
       const ServerModule = await import('../assets/bim-viewer/src/server/Server.js');
-      const ExtendedViewerModule = await import('../lib/extended-bim-viewer/index.js');
+      const ExtendedViewerModule = await import('../assets/extended-bim-viewer/index.ts');
 
-      bimServer.value = new ServerModule.Server(bimServerConfig);
+      bimServer.value = new ServerModule.Server({ basePath: bimServerConfig.basePath });
       bimViewer.value = new ExtendedViewerModule.ExtendedBIMViewer(
         bimServer.value,
         bimViewerConfig,
@@ -46,11 +48,13 @@ export function useBIMViewer() {
       );
 
       // Настройка локализации
-      const localeService = bimViewer.value.localeService;
-      localeService.messages = { ...localeService.messages, ...await loadLocaleMessages() };
+      if (bimViewerConfig.localeService) {
+        localeServiceRef = bimViewerConfig.localeService;
+        localeServiceRef.messages = { ...localeServiceRef.messages, ...await loadLocaleMessages() };
 
-      localeService.on('updated', updateLocalizedElements);
-      updateLocalizedElements(); // Инициализация текстов
+        localeServiceRef.on('updated', updateLocalizedElements);
+        updateLocalizedElements(); // Инициализация текстов
+      }
 
       return true;
     } catch (error) {
@@ -78,18 +82,20 @@ export function useBIMViewer() {
   const updateLocalizedElements = () => {
     if (!bimViewer.value) return;
 
-    const localeService = bimViewer.value.localeService;
+    // Use the stored localeService reference
+    if (!localeServiceRef) return;
+
     const localizedElements = document.querySelectorAll<HTMLElement>('.xeokit-i18n');
 
     localizedElements.forEach((el) => {
       // Текст
       if (el.dataset.xeokitI18n) {
-        el.textContent = localeService.translate(el.dataset.xeokitI18n);
+        el.textContent = localeServiceRef.translate(el.dataset.xeokitI18n);
       }
 
       // Подсказки
       if (el.dataset.xeokitI18ntip) {
-        const tip = localeService.translate(el.dataset.xeokitI18ntip);
+        const tip = localeServiceRef.translate(el.dataset.xeokitI18ntip);
         if (tip) el.dataset.tippyContent = tip;
       }
 

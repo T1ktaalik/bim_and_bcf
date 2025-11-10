@@ -4,19 +4,18 @@
     <input type="checkbox" id="explorer_toggle" class="hidden" v-model="isExplorerVisible" />
     <label
       for="explorer_toggle"
-      class="absolute top-4 z-20 text-white px-4 py-2.5 mx-2 rounded-lg cursor-pointer transition-all duration-100 shadow-md hover:shadow-lg flex items-center gap-2"
-      :class="{ 'left-[358px] bg-gray-700/80': isExplorerVisible, 'left-0 bg-gray-700/80': !isExplorerVisible }"
+      class="absolute top-4 left-0 z-20 text-white px-4 py-2.5 mx-2 rounded-lg cursor-pointer transition-all duration-100 shadow-md hover:shadow-lg flex items-center gap-2 bg-gray-700/80"
+      :class="{ 'left-[320px]': isExplorerVisible }"
     >
       <i class="fas fa-folder text-lg" :class="{ 'text-orange-500': isExplorerVisible, 'text-white': !isExplorerVisible }"></i>
-      <!-- <span>{{ isExplorerVisible ? 'Hide Explorer' : 'Show Explorer' }}</span> -->
     </label>
     
     <!-- Inspector Toggle Button -->
     <input type="checkbox" id="inspector_toggle" class="hidden" v-model="isInspectorVisible" />
     <label
       for="inspector_toggle"
-      class="absolute top-4 z-20 text-white px-4 py-2.5 mx-2 rounded-lg cursor-pointer transition-all duration-100 shadow-md hover:shadow-lg flex items-center gap-2"
-      :class="{ 'right-[358px] bg-gray-700/80': isInspectorVisible, 'right-0 bg-gray-700/80': !isInspectorVisible }"
+      class="absolute top-4 right-0 z-20 text-white px-4 py-2.5 mx-2 rounded-lg cursor-pointer transition-all duration-100 shadow-md hover:shadow-lg flex items-center gap-2 bg-gray-700/80"
+      :class="{ 'right-[358px]': isInspectorVisible }"
     >
       <i class="fas fa-info-circle text-lg" :class="{ 'text-orange-500': isInspectorVisible, 'text-white': !isInspectorVisible }"></i>
     </label>
@@ -29,14 +28,22 @@
       :class="{ 'translate-x-0': isExplorerVisible, '-translate-x-full': !isExplorerVisible }"
     ></div>
     
+    <!-- Inspector Panel -->
     <div
       ref="viewerInspector"
+      id="myInspector"
       class="absolute top-0 right-0 h-full w-[358px] bg-gray-800/90 z-10 overflow-y-auto border-l border-gray-700 shadow-xl transition-all duration-100 ease-in-out backdrop-blur-sm"
       :class="{ 'translate-x-0': isInspectorVisible, 'translate-x-full': !isInspectorVisible }"
     ></div>
-    <div ref="viewerToolbar" id="theViewerToolbar" class="absolute z-4 top-1 left-1/2 transform -translate-x-1/2" :style="{ left: isExplorerVisible ? 'calc(50% + 179px)' : '50%' }"></div>
+    
+    <!-- Toolbar -->
+    <div ref="viewerToolbar" id="theViewerToolbar" class="absolute z-4 top-1 left-1/2 transform -translate-x-1/2" :style="{ left: isExplorerVisible ? 'calc(50% + 160px)' : '50%' }"></div>
+    
+    <!-- Main Canvas -->
     <canvas ref="viewerCanvas" class="absolute h-full w-full z-[2]"></canvas>
-    <canvas ref="viewerNavCubeCanvas" class="absolute z-3 bottom-4 right-4 h-[180px] w-[180px] "></canvas>
+    
+    <!-- Nav Cube Canvas -->
+    <canvas ref="viewerNavCubeCanvas" class="absolute z-3 bottom-4 right-4 h-[180px] w-[180px]"></canvas>
     
     <!-- BCF Controls at the Bottom -->
     <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 z-10" :style="{ left: isExplorerVisible ? 'calc(50% + 179px)' : '50%' }">
@@ -85,15 +92,15 @@
 
 <script lang="ts" setup>
 import { nextTick, ref, reactive, onMounted, onUnmounted } from 'vue'
-/* import { useRouter, useRoute } from '#app' */
+import { useBIMViewer } from './useBIMViewer'
+import { LocaleService } from '../assets/bim-viewer/src/LocaleService.js'
+import { messages as localeMessages } from '../assets/bim-viewer/locales/messages.js'
 
 const bcfURL = import.meta.env.VITE_BCF_URL
 
 const baseURL = import.meta.env.VITE_BASE_URL
 
 const theViewer = ref<HTMLElement | null>(null)
-/* const router = useRouter()
-const route = useRoute() */
 const viewerExplorer = ref<HTMLElement | null>(null)
 const viewerInspector = ref<HTMLElement | null>(null)
 const viewerToolbar = ref<HTMLElement | null>(null)
@@ -123,10 +130,13 @@ function toggleBCFDropdown() {
 
 const theBimServerConfig = {
   //dataDir: '.' // Adjust this path to where your projects are located
-  dataDir: baseURL // Adjust this path to where your projects are located
+ basePath: '/projects' // Adjust this path to where your projects are located
 }
 
-const { initBIMViewer, loadProject, saveBCFViewpoint, loadBCFViewpointFromURL, customizeToolbar, LocaleService, localeMessages, bimViewer } = useBIMViewer()
+const { initBIMViewer, loadProject, saveBCFViewpoint, loadBCFViewpointFromURL, loadBCFViewpointFromFile, customizeToolbar } = useBIMViewer()
+
+// We'll store the bimViewer instance to access it later
+let bimViewerInstance: any = null
 
 // Initialize the BIM viewer
 const initializeViewer = async () => {
@@ -136,14 +146,17 @@ const initializeViewer = async () => {
     return
   }
 
+  // Create LocaleService instance
+  const localeService = new LocaleService({
+    messages: localeMessages,
+    locale: 'ru'
+  });
+
   // Configuration for the BIM viewer
   const theBimViewerConfig = {
     //locale: 'ru', // Set to Russian as in the example
-    localeService: new LocaleService({
-                messages: localeMessages,
-                locale: 'ru'
-            }),
-
+    locale: 'ru',
+    localeService: localeService,
     canvasElement: viewerCanvas.value,
     explorerElement: viewerExplorer.value,
     inspectorElement: viewerInspector.value,
@@ -175,16 +188,6 @@ const initializeViewer = async () => {
         parseBCFQueryParam()
       }
     )
-    
-    // Listen for the openInspector event to show the Inspector panel
-    bimViewer.value.on("openInspector", () => {
-      isInspectorVisible.value = true
-    })
-    
-    // Listen for the openExplorer event to show the Explorer panel
-    bimViewer.value.on("openExplorer", () => {
-      isExplorerVisible.value = true
-    })
     
     // Customize the toolbar after initialization
     nextTick(() => {
@@ -246,10 +249,10 @@ console.log(`Load the BCF viewpoint: ${fileName}`)
 isBCFDropdownOpen.value = false
 // Update URL query parameters
 const bcfName = fileName.replace('.json', '')
-router.push({ query: { ...route.query, bcf: bcfName } })
+// For now, we'll just load the BCF viewpoint without updating the URL
+// In a full Vue Router implementation, we would use router.push()
 // Load the BCF viewpoint from the public directory
-//loadBCFViewpointFromURL(`https://storage.yandexcloud.net/apps.nova-engineering.pro/promo_warehouse/bcf/${fileName}`)
-loadBCFViewpointFromURL(runtimeConfig.public.bcfURL+`/${fileName}`)
+loadBCFViewpointFromURL(bcfURL+`/${fileName}`)
 }
 
 // Lifecycle hooks
@@ -260,8 +263,8 @@ onMounted(async () => {
   
   // Fetch the list of BCF files from the server
   try {
-    console.log(runtimeConfig.public.bcfURL+`/index.json`)
-    const response = await fetch(runtimeConfig.public.bcfURL+`/index.json`)
+    console.log(bcfURL+`/index.json`)
+    const response = await fetch(bcfURL+`/index.json`)
     const fileNames = await response.json()
     
     // Convert file names to objects with name and label properties

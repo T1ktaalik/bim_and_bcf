@@ -77,7 +77,7 @@ function createExplorerTemplate(cfg) {
 
 function createModelExplorerTemplate(cfg) {
     // Create explorer navigation buttons
-    const modelExplorerTemplate = `<div class="xeokit-explorer-nav">
+    let modelExplorerTemplate = `<div class="xeokit-explorer-nav">
         <div class="xeokit-btn-group xeokit-explorer-buttons">
             <button type="button" class="xeokit-i18n xeokit-explorer-btn xeokit-models-btn active" data-xeokit-i18n="modelsExplorer.title" data-explorer-view="models">Models</button>
             <button type="button" class="xeokit-i18n xeokit-explorer-btn xeokit-objects-btn" data-xeokit-i18n="objectsExplorer.title" data-explorer-view="objects">Objects</button>

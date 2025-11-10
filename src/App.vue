@@ -11,4 +11,6 @@ import TheBIMViewer from './components/TheBIMViewer.vue'
 
 <style scoped>
 @import "tailwindcss";
+@import url('@/assets/css/style.css');
+@import url('@/assets/css/bim-viewer-tw.css');
 </style>

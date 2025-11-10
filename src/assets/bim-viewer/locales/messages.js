@@ -162,7 +162,9 @@ const messages = {
             "flipSlices": "Flip Slices", // Menu option to reverse the cutting direction of all slices
             "edit": "Edit", // Sub-menu option to edit a single slice
             "flip": "Flip", // Sub-menu option to reverse the cutting direction of a single slice
-            "delete": "Delete" // Sub-menu option to delete a single slice
+            "delete": "Delete", // Sub-menu option to delete a single slice
+            "disableAllSlices": "Disable all Slices", // Menu option to disable all slices
+            "enableAllSlices": "Enable all Slices" // Menu option to enable all slices
         },
 
         "measureContextMenu": {
@@ -333,7 +335,9 @@ const messages = {
             "flipSlices": "Schnittebenen umdrehen", // Menu option to reverse the cutting direction of all slices
             "edit": "Bearbeiten", // Sub-menu option to edit a single slice
             "flip": "Umdrehen", // Sub-menu option to reverse the cutting direction of a single slice
-            "delete": "Löschen" // Sub-menu option to delete a single slice
+            "delete": "Löschen", // Sub-menu option to delete a single slice
+            "disableAllSlices": "Alle Schnitte deaktivieren", // Menu option to disable all slices
+            "enableAllSlices": "Alle Schnitte aktivieren" // Menu option to enable all slices
         },
 
         "measureContextMenu": {
@@ -503,7 +507,9 @@ const messages = {
             "flipSlices": "Inverser les coupes", // Menu option to reverse the cutting direction of all slices
             "edit": "Editer", // Sub-menu option to edit a single slice
             "flip": "Inverser", // Sub-menu option to reverse the cutting direction of a single slice
-            "delete": "Supprimer" // Sub-menu option to delete a single slice
+            "delete": "Supprimer", // Sub-menu option to delete a single slice
+            "disableAllSlices": "Désactiver toutes les coupes", // Menu option to disable all slices
+            "enableAllSlices": "Activer toutes les coupes" // Menu option to enable all slices
         },
 
         "measureContextMenu": {
@@ -858,6 +864,8 @@ const messages = {
             "edit": "Редактировать", // Sub-menu option to edit a single slice
             "flip": "Развернуть", // Sub-menu option to reverse the cutting direction of a single slice
             "delete": "Удалить", // Sub-menu option to delete a single slice
+            "disableAllSlices": "Отключить все сечения", // Menu option to disable all slices
+            "enableAllSlices": "Включить все сечения" // Menu option to enable all slices
         },
 
         "measureContextMenu": {
