@@ -1,0 +1,406 @@
+/* BIM Viewer Styling with Tailwind CSS */
+/* @import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities'; */
+@import "tailwindcss";
+@import "./fontawesome-free-5.11.2-web/css/all.css";
+/* Custom styles that complement Tailwind */
+
+/* Toolbar styling */
+.xeokit-toolbar {
+  @apply bg-transparent rounded-lg  m-4 p-2 absolute! top-1 left-1/2 transform -translate-x-1/2 flex flex-row items-center justify-center flex-nowrap;
+}
+
+.xeokit-btn-group {
+  @apply flex gap-1 mr-1;
+}
+
+.xeokit-btn-group:last-child {
+  @apply mr-0;
+}
+
+.xeokit-btn {
+  @apply bg-gray-700 text-gray-300 rounded-md p-1 cursor-pointer transition-all duration-200 text-sm flex items-center justify-center min-w-[40px] min-h-[40px] shadow-none border-none;
+  text-transform: uppercase;
+}
+
+/* Default icon color for buttons */
+.xeokit-btn i,
+.xeokit-btn .fa,
+.xeokit-btn .fas,
+.xeokit-btn .far,
+.xeokit-btn .fab,
+.xeokit-btn .fal,
+.xeokit-btn .fad {
+  color: #f3f4f6; /* text-gray-100 - light gray/white */
+  font-size: 1.25rem; /* Further reduce icon size */
+}
+
+.xeokit-btn:hover:not(.disabled) {
+  @apply bg-gray-600 text-orange-500 transform translate-y-[-1px];
+}
+
+.xeokit-btn:active:not(.disabled) {
+  @apply transform translate-y-0;
+}
+
+.xeokit-btn.active {
+  @apply bg-gray-700 text-orange-500;
+}
+
+/* Active state icon color */
+.xeokit-btn.active i,
+.xeokit-btn.active .fa,
+.xeokit-btn.active .fas,
+.xeokit-btn.active .far,
+.xeokit-btn.active .fab,
+.xeokit-btn.active .fal,
+.xeokit-btn.active .fad {
+  color: #f97316; /* orange-500 */
+}
+
+.xeokit-btn.disabled {
+  @apply opacity-50 cursor-not-allowed;
+}
+
+/* Specific styles for show/hide buttons in explorer views to match explorer tab styling */
+.xeokit-showAllObjects.xeokit-btn,
+.xeokit-hideAllObjects.xeokit-btn,
+.xeokit-showAllClasses.xeokit-btn,
+.xeokit-hideAllClasses.xeokit-btn,
+.xeokit-showAllStoreys.xeokit-btn,
+.xeokit-hideAllStoreys.xeokit-btn {
+  @apply bg-transparent text-gray-300 px-3 py-2 rounded-md border-none shadow-none;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 40px;
+  min-height: 40px;
+  text-transform: uppercase;
+  font-size: 14px;
+  transition: all 0.2s ease;
+}
+
+.xeokit-showAllObjects.xeokit-btn:hover:not(.disabled),
+.xeokit-hideAllObjects.xeokit-btn:hover:not(.disabled),
+.xeokit-showAllClasses.xeokit-btn:hover:not(.disabled),
+.xeokit-hideAllClasses.xeokit-btn:hover:not(.disabled),
+.xeokit-showAllStoreys.xeokit-btn:hover:not(.disabled),
+.xeokit-hideAllStoreys.xeokit-btn:hover:not(.disabled) {
+  @apply text-white;
+  background: transparent;
+  transform: translateY(-1px);
+}
+
+.xeokit-showAllObjects.xeokit-btn:active:not(.disabled),
+.xeokit-hideAllObjects.xeokit-btn:active:not(.disabled),
+.xeokit-showAllClasses.xeokit-btn:active:not(.disabled),
+.xeokit-hideAllClasses.xeokit-btn:active:not(.disabled),
+.xeokit-showAllStoreys.xeokit-btn:active:not(.disabled),
+.xeokit-hideAllStoreys.xeokit-btn:active:not(.disabled) {
+  transform: translateY(0);
+}
+
+/* Explorer panel styling */
+.xeokit-explorer-nav {
+  @apply mb-4;
+}
+
+.xeokit-explorer-buttons {
+  @apply flex flex-nowrap gap-1;
+}
+
+.xeokit-inspector-buttons {
+  @apply flex flex-nowrap gap-1;
+}
+
+.xeokit-explorer-btn {
+  @apply bg-transparent text-gray-300 px-3 py-2 cursor-pointer transition-all duration-200 text-sm rounded-md border-none shadow-none;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 40px;
+  min-height: 40px;
+  text-transform: uppercase;
+}
+
+/* Default icon color for explorer buttons */
+.xeokit-explorer-btn i,
+.xeokit-explorer-btn .fa,
+.xeokit-explorer-btn .fas,
+.xeokit-explorer-btn .far,
+.xeokit-explorer-btn .fab,
+.xeokit-explorer-btn .fal,
+.xeokit-explorer-btn .fad {
+  color: #f3f4f6; /* text-gray-100 - light gray/white */
+  font-size: 1.5rem; /* Consistent icon size */
+}
+
+.xeokit-explorer-btn:hover:not(.disabled) {
+  @apply text-white;
+  background: transparent;
+  transform: translateY(-1px);
+}
+
+.xeokit-explorer-btn:active:not(.disabled) {
+  transform: translateY(0);
+}
+
+.xeokit-explorer-btn.active {
+  @apply text-orange-500;
+  background: transparent;
+  border-color: transparent;
+}
+
+/* Active state icon color for explorer buttons */
+.xeokit-explorer-btn.active i,
+.xeokit-explorer-btn.active .fa,
+.xeokit-explorer-btn.active .fas,
+.xeokit-explorer-btn.active .far,
+.xeokit-explorer-btn.active .fab,
+.xeokit-explorer-btn.active .fal,
+.xeokit-explorer-btn.active .fad {
+  color: #f97316; /* orange-500 */
+}
+
+.xeokit-explorer-btn.disabled {
+  @apply opacity-50 cursor-not-allowed;
+}
+
+/* Tree view styling */
+.xeokit-tree-panel {
+  @apply bg-gray-700/50 rounded-md p-2 mt-2;
+}
+
+.xeokit-tree-node {
+  @apply px-2 py-1.5 rounded-sm mb-0.5 cursor-pointer transition-all duration-150 flex items-center;
+}
+
+.xeokit-tree-node:hover {
+  @apply bg-gray-600/70;
+}
+
+.xeokit-tree-node.selected {
+  @apply bg-orange-800/70 text-white;
+}
+
+.xeokit-tree-node.hidden {
+  @apply opacity-50;
+}
+
+.xeokit-tree-node-label {
+  @apply flex-1 whitespace-nowrap overflow-hidden text-ellipsis px-2;
+}
+
+.xeokit-tree-node-arrow {
+  @apply w-4 text-center transition-transform duration-200;
+}
+
+.xeokit-tree-node-arrow.expanded {
+  @apply rotate-90;
+}
+
+/* Section tool arrow styling */
+.xeokit-section-menu-button-arrow {
+  @apply inline-block w-4 h-4 text-center transition-transform duration-200;
+}
+
+.xeokit-arrow-down:before {
+  content: "\f078"; /* fa-chevron-down */
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+}
+
+.xeokit-arrow-up:before {
+  content: "\f077"; /* fa-chevron-up */
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+}
+
+.xeokit-section-menu-button {
+  @apply absolute right-4 bottom-0.5 w-4 h-4 flex items-center justify-center cursor-pointer z-10;
+}
+
+.xeokit-section-menu-button.disabled {
+  @apply opacity-50 cursor-not-allowed;
+}
+
+.xeokit-section-counter {
+  @apply absolute top-0.5 right-4 text-xs bg-orange-500 text-white rounded-full w-4 h-4 flex items-center justify-center z-10 pointer-events-none;
+}
+
+/* Properties inspector styling */
+.xeokit-properties {
+  @apply bg-gray-700/50 rounded-md p-3 mt-2;
+}
+
+.xeokit-property-set {
+  @apply mb-4;
+}
+
+.xeokit-property-set-title {
+  @apply font-bold text-sky-300 mb-2 pb-1 border-b border-gray-600/30;
+}
+
+.xeokit-property {
+  @apply flex py-1.5 border-b border-gray-600/10;
+}
+
+.xeokit-property:last-child {
+  @apply border-b-0;
+}
+
+.xeokit-property-name {
+  @apply flex-1 text-gray-400 text-sm;
+}
+
+.xeokit-property-value {
+  @apply flex-2 text-gray-200 text-sm text-right break-words;
+}
+
+/* Properties inspector table cell styling */
+.td1 {
+  @apply flex-1 text-gray-400 text-sm;
+}
+
+.td2 {
+  @apply flex-2 text-gray-200 text-sm text-right break-words;
+}
+
+/* Context menu styling */
+.xeokit-context-menu {
+  @apply absolute bg-gray-700/90 border border-gray-700/50 rounded-lg shadow-lg z-[1000000] min-w-[180px] backdrop-blur-sm;
+  background: rgba(55, 65, 81, 0.9) !important; /* bg-gray-700/90 with !important to override inline styles */
+}
+
+.xeokit-context-menu-item {
+  @apply px-4 py-2.5 cursor-pointer transition-all duration-150 flex items-center text-sm text-gray-300;
+  background: transparent !important; /* Ensure items don't have their own background */
+}
+
+.xeokit-context-menu-item:hover {
+  @apply bg-gray-700/90 text-orange-500;
+}
+
+.xeokit-context-menu-item i {
+  @apply mr-2 w-5 text-center;
+}
+
+.xeokit-section {
+  @apply relative;
+}
+
+.xeokit-context-menu-separator {
+  @apply h-px bg-gray-600/50 my-1;
+}
+
+/* Section tool styling */
+.xeokit-section-menu {
+  @apply absolute bg-gray-700/95 border border-gray-600/70 rounded-md shadow-lg z-[100000] min-w-[200px] backdrop-blur-sm;
+}
+
+.xeokit-section-menu-item {
+  @apply px-4 py-2.5 cursor-pointer transition-all duration-150 flex items-center text-sm text-gray-300;
+}
+
+.xeokit-section-menu-item:hover {
+  @apply bg-orange-800/80 text-white;
+}
+
+.xeokit-section-menu-item i {
+  @apply mr-2 w-5 text-center;
+}
+
+/* NavCube styling */
+.xeokit-navcube {
+  @apply bg-gray-800/70 rounded-lg border border-gray-600/50 shadow-lg backdrop-blur-sm;
+}
+
+/* Camera pivot marker */
+.xeokit-camera-pivot-marker {
+  @apply absolute w-5 h-5 bg-yellow-500/70 border-2 border-black/80 rounded-full transform -translate-x-1/2 -translate-y-1/2 pointer-events-none z-[10000];
+}
+
+/* Busy modal styling */
+.xeokit-busy-modal {
+  @apply absolute inset-0 w-full h-full bg-black/50 flex place-items-center place-content-center z-1000000 backdrop-blur-sm;
+}
+
+.xeokit-busy-modal-content {
+  @apply bg-gray-800/95 rounded-xl p-8 text-center shadow-2xl border border-gray-700/70 backdrop-blur-lg flex flex-col items-center justify-center w-80 h-60  ;
+}
+
+.xeokit-busy-modal-spinner {
+  @apply border-4 border-gray-600/30 rounded-full border-t-sky-400 w-12 h-12 animate-spin;
+}
+
+.xeokit-busy-modal-text {
+  @apply text-gray-200 text-base mt-4;
+}
+
+/* Measurement styling */
+.xeokit-measurement {
+  @apply absolute bg-gray-700/90 border border-gray-600/70 rounded-md px-3 py-2 text-white text-xs pointer-events-none z-[10000] backdrop-blur-sm shadow-md;
+}
+
+.xeokit-measurement-label {
+  @apply whitespace-nowrap;
+}
+
+/* Highlight and selection effects */
+.xeokit-highlight {
+  @apply outline-2 outline-sky-300 outline /* outline-offset-px; */
+}
+
+.xeokit-selection {
+  @apply outline-2 outline-green-400 outline /* outline-offset-px; */
+}
+
+/* Responsive adjustments */
+/* Transparent background styles for explorer buttons */
+.xeokit-loadAllModels.xeokit-btn,
+.xeokit-unloadAllModels.xeokit-btn {
+  background: transparent;
+}
+
+.xeokit-loadAllModels.xeokit-btn:hover:not(.disabled),
+.xeokit-unloadAllModels.xeokit-btn:hover:not(.disabled) {
+  background: transparent;
+}
+
+.xeokit-loadAllModels.xeokit-btn.active,
+.xeokit-unloadAllModels.xeokit-btn.active {
+  background: transparent;
+}
+@media (max-width: 768px) {
+  .xeokit-btn {
+    @apply px-1 py-1 min-w-[40px] min-h-[40px] text-xs;
+  }
+  
+  .xeokit-tab-btn {
+    @apply px-3 py-2.5 text-xs;
+  }
+  
+  .xeokit-explorer-btn {
+    @apply px-3 py-2.5 text-xs;
+  }
+  
+  .xeokit-showAllObjects.xeokit-btn,
+  .xeokit-hideAllObjects.xeokit-btn,
+  .xeokit-showAllClasses.xeokit-btn,
+  .xeokit-hideAllClasses.xeokit-btn,
+  .xeokit-showAllStoreys.xeokit-btn,
+  .xeokit-hideAllStoreys.xeokit-btn {
+    @apply px-3 py-2.5 text-xs;
+  }
+  
+  .xeokit-tree-node {
+    @apply px-1.5 py-1 text-xs;
+  }
+  
+  .xeokit-property {
+    @apply py-1 text-xs;
+  }
+}

@@ -1,0 +1,232 @@
+/* Main consolidated CSS file for BIM Viewer */
+/* This file consolidates all CSS imports to avoid duplications */
+
+/* Import Tailwind CSS first */
+@import "tailwindcss";
+
+/* Import Font Awesome */
+@import "./fontawesome-free-5.11.2-web/css/all.css";
+
+/* Import layout styles */
+@import "./style.css";
+
+/* Import backdrop styles */
+@import "./backdrop.css";
+
+/* Import BIM Viewer styles (Tailwind version) */
+@import "./bim-viewer-tw.css";
+
+/* Note: We're not importing bim-viewer.css as it's a duplicate of bim-viewer-tw.css
+   but using traditional CSS instead of Tailwind */
+
+/* Override explorer styles to make it look like properties inspector */
+#myExplorer {
+  width: 358px !important;
+  padding: 0 !important;
+}
+
+/* Additional styling to make explorer look more like inspector */
+.xeokit-explorer-content {
+  height: 100%;
+  padding: 12px;
+}
+
+/* Style explorer buttons to match inspector style */
+.xeokit-explorer-buttons {
+  /* background: rgba(55, 65, 81, 0.5); */
+  border-radius: 6px;
+  padding: 8px;
+  margin-bottom: 8px;
+}
+
+/* Explorer button styling to match general buttons */
+.xeokit-explorer-btn {
+  background: transparent;
+  color: #d1d5db; /* text-gray-300 */
+  border-radius: 6px; /* rounded-md */
+  padding: 8px 12px; /* px-3 py-2 */
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 14px; /* text-sm */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 40px;
+  min-height: 40px;
+  text-transform: uppercase;
+}
+
+/* Default icon color for explorer buttons */
+.xeokit-explorer-btn i,
+.xeokit-explorer-btn .fa,
+.xeokit-explorer-btn .fas,
+.xeokit-explorer-btn .far,
+.xeokit-explorer-btn .fab,
+.xeokit-explorer-btn .fal,
+.xeokit-explorer-btn .fad {
+  color: #f3f4f6; /* text-gray-100 - light gray/white */
+}
+
+.xeokit-explorer-btn:hover:not(.disabled) {
+  background: transparent;
+  color: white;
+  transform: translateY(-1px);
+}
+
+.xeokit-explorer-btn:active:not(.disabled) {
+  transform: translateY(0);
+}
+
+.xeokit-explorer-btn.active {
+  color: #f97316; /* orange-500 */
+  background: transparent;
+  border-color: transparent;
+}
+
+/* Active state icon color for explorer buttons */
+.xeokit-explorer-btn.active i,
+.xeokit-explorer-btn.active .fa,
+.xeokit-explorer-btn.active .fas,
+.xeokit-explorer-btn.active .far,
+.xeokit-explorer-btn.active .fab,
+.xeokit-explorer-btn.active .fal,
+.xeokit-explorer-btn.active .fad {
+  color: #f97316; /* orange-500 */
+}
+
+.xeokit-explorer-btn.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Explorer panel styling to match properties inspector */
+#myExplorer .xeokit-tree-panel {
+  /* background: rgba(55, 65, 81, 0.5); */
+  border-radius: 6px;
+  padding: 12px;
+  margin-top: 8px;
+}
+
+/* Explorer property set styling */
+#myExplorer .xeokit-property-set {
+  margin-bottom: 16px;
+}
+
+/* Explorer property set title styling */
+#myExplorer .xeokit-property-set-title {
+  font-weight: bold;
+  color: #4fc3f7;
+  margin-bottom: 8px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid rgba(55, 65, 81, 0.3);
+}
+
+/* Explorer property styling to match inspector */
+#myExplorer .xeokit-property {
+  display: flex;
+  padding: 6px 0;
+  border-bottom: 1px solid rgba(55, 65, 81, 0.1);
+}
+
+#myExplorer .xeokit-property:last-child {
+  border-bottom: none;
+}
+
+#myExplorer .xeokit-property-name {
+  flex: 1;
+  color: #9ca3af; /* gray-400 */
+  font-size: 13px;
+}
+
+#myExplorer .xeokit-property-value {
+  flex: 2;
+  color: #f3f4f6; /* gray-100 */
+  font-size: 13px;
+  text-align: right;
+  word-break: break-word;
+}
+
+/* Explorer tree node styling to match overall design language */
+#myExplorer .xeokit-tree-node {
+  padding: 6px 8px;
+  border-radius: 4px;
+  margin-bottom: 2px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  display: flex;
+  align-items: center;
+}
+
+#myExplorer .xeokit-tree-node:hover {
+  background: rgba(55, 65, 81, 0.7);
+}
+
+#myExplorer .xeokit-tree-node.selected {
+  background: rgba(249, 115, 22, 0.7); /* bg-orange-500/70 */
+  color: white;
+}
+
+#myExplorer .xeokit-tree-node.hidden {
+  opacity: 0.5;
+}
+
+#myExplorer .xeokit-tree-node-label {
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 0 8px;
+}
+
+#myExplorer .xeokit-tree-node-arrow {
+  width: 16px;
+  text-align: center;
+  transition: transform 0.2s ease;
+}
+
+#myExplorer .xeokit-tree-node-arrow.expanded {
+  transform: rotate(90deg);
+}
+
+/* Override Tailwind invisible class for explorer views to ensure zero height */
+.xeokit-explorer-view.invisible {
+  display: none !important;
+}
+
+/* Ensure visible explorer views are displayed as blocks */
+.xeokit-explorer-view.visible {
+    display: block !important;
+}
+
+/* Style for inspector header to make it look like a traditional header without button properties */
+.xeokit-properties-header {
+    background: rgba(55, 65, 81, 0.8); /* bg-gray-700/80 */
+    color: #d1d5db; /* text-gray-300 */
+    border-radius: 6px; /* rounded-md */
+    padding: 8px 12px; /* px-3 py-2 */
+    font-size: 14px; /* text-sm */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 40px;
+    min-height: 40px;
+    font-weight: 600; /* Semi-bold */
+    text-transform: uppercase;
+    letter-spacing: 0.025em;
+    border: none; /* Remove border as requested */
+}
+
+/* Fix for dark text in no property set warning */
+.xeokit-no-prop-set-warning {
+    color: #d1d5db !important; /* text-gray-300 */
+}
+
+/* Fix for dark text in no object selected warning */
+.no-object-selected-warning {
+    color: #d1d5db !important; /* text-gray-300 */
+}
+
+/* Fix for dark text in busy modal message */
+.xeokit-busy-modal-message {
+    color: #d1d5db !important; /* text-gray-300 */
+}
