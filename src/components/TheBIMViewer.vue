@@ -4,8 +4,8 @@
     <input type="checkbox" id="explorer_toggle" class="hidden" v-model="isExplorerVisible" />
     <label
       for="explorer_toggle"
-      class="absolute top-4 left-0 z-20 text-white px-4 py-2.5 mx-2 rounded-lg cursor-pointer transition-all duration-100 shadow-md hover:shadow-lg flex items-center gap-2 bg-gray-700/80"
-      :class="{ 'left-[320px]': isExplorerVisible }"
+      class="absolute top-4 left-0 z-20 text-white px-4 py-2.5 mx-2 rounded-lg cursor-pointer transition-all duration-100 shadow-md hover:shadow-lg flex items-center gap-2"
+      :class="{ 'left-[358px]': isExplorerVisible }"
     >
       <i class="fas fa-folder text-lg" :class="{ 'text-orange-500': isExplorerVisible, 'text-white': !isExplorerVisible }"></i>
     </label>
@@ -14,7 +14,7 @@
     <input type="checkbox" id="inspector_toggle" class="hidden" v-model="isInspectorVisible" />
     <label
       for="inspector_toggle"
-      class="absolute top-4 right-0 z-20 text-white px-4 py-2.5 mx-2 rounded-lg cursor-pointer transition-all duration-100 shadow-md hover:shadow-lg flex items-center gap-2 bg-gray-700/80"
+      class="absolute top-4 right-0 z-20 text-white px-4 py-2.5 mx-2 rounded-lg cursor-pointer transition-all duration-100 shadow-md hover:shadow-lg flex items-center gap-2"
       :class="{ 'right-[358px]': isInspectorVisible }"
     >
       <i class="fas fa-info-circle text-lg" :class="{ 'text-orange-500': isInspectorVisible, 'text-white': !isInspectorVisible }"></i>
@@ -24,7 +24,7 @@
     <div
       ref="viewerExplorer"
       id="myExplorer"
-      class="absolute top-0 left-0 h-full w-80 bg-gray-800/90 z-10 overflow-y-auto border-r border-gray-700 shadow-xl transition-all duration-100 ease-in-out backdrop-blur-sm"
+      class="absolute top-0 left-0 h-full w-[358px] bg-gray-800/90 z-10 overflow-y-auto border-r border-gray-700 shadow-xl transition-all duration-100 ease-in-out backdrop-blur-sm"
       :class="{ 'translate-x-0': isExplorerVisible, '-translate-x-full': !isExplorerVisible }"
     ></div>
     
@@ -37,7 +37,7 @@
     ></div>
     
     <!-- Toolbar -->
-    <div ref="viewerToolbar" id="theViewerToolbar" class="absolute z-4 top-1 left-1/2 transform -translate-x-1/2" :style="{ left: isExplorerVisible ? 'calc(50% + 160px)' : '50%' }"></div>
+    <div ref="viewerToolbar" id="theViewerToolbar" class="absolute z-4 top-1 left-1/2 transform -translate-x-1/2" :style="{ left: isExplorerVisible ? 'calc(50% + 179px)' : '50%' }"></div>
     
     <!-- Main Canvas -->
     <canvas ref="viewerCanvas" class="absolute h-full w-full z-[2]"></canvas>
@@ -51,7 +51,7 @@
         <!-- Save Button -->
         <button
           @click="saveTheBCFViewpoint"
-          class="bg-gray-700/80 border border-gray-600/50 text-gray-300 rounded-md px-3 py-2 cursor-pointer transition-all duration-200 text-sm flex items-center justify-center min-w-[40px] min-h-[40px] hover:bg-gray-600/90 border-gray-500/70 transform translate-y-[-1px] shadow-md bg-orange-600/90 border-orange-500/80 text-white hover:bg-orange-500/90"
+          class="border border-gray-600/50 text-gray-300 rounded-md px-3 py-2 cursor-pointer transition-all duration-200 text-sm flex items-center justify-center min-w-[40px] min-h-[40px] hover:bg-gray-600/90 border-gray-500/70 transform translate-y-[-1px] shadow-md bg-orange-600/90 border-orange-500/80 text-white hover:bg-orange-500/90"
           title="Сохранить вид"
         >
           <i class="fas fa-save mr-2"></i>
@@ -62,7 +62,7 @@
         <div class="relative">
           <button
             @click="toggleBCFDropdown"
-            class="bg-gray-700/80 border border-gray-600/50 text-gray-300 rounded-md px-3 py-2 cursor-pointer transition-all duration-200 text-sm flex items-center justify-center min-w-[40px] min-h-[40px] hover:bg-gray-600/90 border-gray-500/70 transform translate-y-[-1px] shadow-md"
+            class="border border-gray-600/50 text-gray-300 rounded-md px-3 py-2 cursor-pointer transition-all duration-200 text-sm flex items-center justify-center min-w-[40px] min-h-[40px] hover:bg-gray-600/90 border-gray-500/70 transform translate-y-[-1px] shadow-md"
             :title="`Выберите BCF для загрузки`"
           >
             <span>Выберите BCF...</span>
@@ -98,8 +98,6 @@ import { messages as localeMessages } from '../assets/bim-viewer/locales/message
 
 const bcfURL = import.meta.env.VITE_BCF_URL
 
-const baseURL = import.meta.env.VITE_BASE_URL
-
 const theViewer = ref<HTMLElement | null>(null)
 const viewerExplorer = ref<HTMLElement | null>(null)
 const viewerInspector = ref<HTMLElement | null>(null)
@@ -130,13 +128,10 @@ function toggleBCFDropdown() {
 
 const theBimServerConfig = {
   //dataDir: '.' // Adjust this path to where your projects are located
- basePath: '/projects' // Adjust this path to where your projects are located
+ basePath: import.meta.env.VITE_BASE_URL + '/projects' // Adjust this path to where your projects are located
 }
 
-const { initBIMViewer, loadProject, saveBCFViewpoint, loadBCFViewpointFromURL, loadBCFViewpointFromFile, customizeToolbar } = useBIMViewer()
-
-// We'll store the bimViewer instance to access it later
-let bimViewerInstance: any = null
+const { initBIMViewer, loadProject, saveBCFViewpoint, loadBCFViewpointFromURL, customizeToolbar } = useBIMViewer()
 
 // Initialize the BIM viewer
 const initializeViewer = async () => {
@@ -247,8 +242,6 @@ function loadBCFViewpoint(fileName: string) {
 console.log(`Load the BCF viewpoint: ${fileName}`)
 // Close the dropdown
 isBCFDropdownOpen.value = false
-// Update URL query parameters
-const bcfName = fileName.replace('.json', '')
 // For now, we'll just load the BCF viewpoint without updating the URL
 // In a full Vue Router implementation, we would use router.push()
 // Load the BCF viewpoint from the public directory

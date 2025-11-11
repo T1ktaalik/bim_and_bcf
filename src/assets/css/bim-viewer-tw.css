@@ -6,6 +6,10 @@
 @import "./fontawesome-free-5.11.2-web/css/all.css";
 /* Custom styles that complement Tailwind */
 
+:root {
+  --xeokit-gray-bg: #374151; /* bg-gray-700 */
+}
+
 /* Toolbar styling */
 .xeokit-toolbar {
   @apply bg-transparent rounded-lg  m-4 p-2 absolute! top-1 left-1/2 transform -translate-x-1/2 flex flex-row items-center justify-center flex-nowrap;
@@ -20,7 +24,8 @@
 }
 
 .xeokit-btn {
-  @apply bg-gray-700 text-gray-300 rounded-md p-1 cursor-pointer transition-all duration-200 text-sm flex items-center justify-center min-w-[40px] min-h-[40px] shadow-none border-none;
+  @apply text-gray-300 rounded-md p-1 cursor-pointer transition-all duration-200 text-sm flex items-center justify-center min-w-[40px] min-h-[40px] shadow-none border-none;
+  background-color: var(--xeokit-gray-bg);
   text-transform: uppercase;
 }
 
@@ -45,7 +50,8 @@
 }
 
 .xeokit-btn.active {
-  @apply bg-gray-700 text-orange-500;
+  background-color: var(--xeokit-gray-bg);
+  @apply text-orange-500;
 }
 
 /* Active state icon color */
@@ -171,7 +177,8 @@
 
 /* Tree view styling */
 .xeokit-tree-panel {
-  @apply bg-gray-700/50 rounded-md p-2 mt-2;
+  @apply rounded-md p-2 mt-2;
+  background-color: var(--xeokit-gray-bg);
 }
 
 .xeokit-tree-node {
@@ -233,7 +240,8 @@
 
 /* Properties inspector styling */
 .xeokit-properties {
-  @apply bg-gray-700/50 rounded-md p-3 mt-2;
+  @apply rounded-md p-3 mt-2;
+  background-color: var(--xeokit-gray-bg);
 }
 
 .xeokit-property-set {
@@ -271,8 +279,8 @@
 
 /* Context menu styling */
 .xeokit-context-menu {
-  @apply absolute bg-gray-700/90 border border-gray-700/50 rounded-lg shadow-lg z-[1000000] min-w-[180px] backdrop-blur-sm;
-  background: rgba(55, 65, 81, 0.9) !important; /* bg-gray-700/90 with !important to override inline styles */
+  @apply absolute border border-gray-700/50 rounded-lg shadow-lg z-[1000000] min-w-[180px] backdrop-blur-sm;
+  background-color: var(--xeokit-gray-bg) !important;
 }
 
 .xeokit-context-menu-item {
@@ -281,7 +289,8 @@
 }
 
 .xeokit-context-menu-item:hover {
-  @apply bg-gray-700/90 text-orange-500;
+  background-color: var(--xeokit-gray-bg);
+  @apply text-orange-500;
 }
 
 .xeokit-context-menu-item i {
@@ -298,7 +307,8 @@
 
 /* Section tool styling */
 .xeokit-section-menu {
-  @apply absolute bg-gray-700/95 border border-gray-600/70 rounded-md shadow-lg z-[100000] min-w-[200px] backdrop-blur-sm;
+  @apply absolute border border-gray-600/70 rounded-md shadow-lg z-[100000] min-w-[200px] backdrop-blur-sm;
+  background-color: var(--xeokit-gray-bg);
 }
 
 .xeokit-section-menu-item {
@@ -315,7 +325,8 @@
 
 /* NavCube styling */
 .xeokit-navcube {
-  @apply bg-gray-800/70 rounded-lg border border-gray-600/50 shadow-lg backdrop-blur-sm;
+  @apply rounded-lg border border-gray-600/50 shadow-lg backdrop-blur-sm;
+  background-color: var(--xeokit-gray-bg);
 }
 
 /* Camera pivot marker */
@@ -329,7 +340,8 @@
 }
 
 .xeokit-busy-modal-content {
-  @apply bg-gray-800/95 rounded-xl p-8 text-center shadow-2xl border border-gray-700/70 backdrop-blur-lg flex flex-col items-center justify-center w-80 h-60  ;
+  @apply rounded-xl p-8 text-center shadow-2xl border border-gray-700/70 backdrop-blur-lg flex flex-col items-center justify-center w-80 h-60  ;
+  background-color: var(--xeokit-gray-bg);
 }
 
 .xeokit-busy-modal-spinner {
@@ -342,11 +354,23 @@
 
 /* Measurement styling */
 .xeokit-measurement {
-  @apply absolute bg-gray-700/90 border border-gray-600/70 rounded-md px-3 py-2 text-white text-xs pointer-events-none z-[10000] backdrop-blur-sm shadow-md;
+  @apply absolute border border-gray-600/70 rounded-md px-3 py-2 text-white text-xs pointer-events-none z-[10000] backdrop-blur-sm shadow-md;
+  background-color: var(--xeokit-gray-bg);
+}
+
+/* Background styles for elements using the CSS variable */
+label[for="explorer_toggle"],
+label[for="inspector_toggle"] {
+  background-color: var(--xeokit-gray-bg);
 }
 
 .xeokit-measurement-label {
   @apply whitespace-nowrap;
+}
+
+/* BCF Button styles */
+button[title="Выберите BCF для загрузки"] {
+  background-color: var(--xeokit-gray-bg);
 }
 
 /* Highlight and selection effects */

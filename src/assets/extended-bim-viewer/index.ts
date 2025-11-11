@@ -1,4 +1,4 @@
-import { BIMViewer } from '../bim-viewer/src/BIMViewer.js';
+import { BIMViewer } from '../bim-viewer/src/BIMViewer';
 
 /**
  * Extended BIM Viewer class that extends the base BIMViewer
@@ -25,7 +25,7 @@ export class ExtendedBIMViewer extends BIMViewer {
    * Custom method to save the current BCF viewpoint
    * @param {*} cfg Configuration for saving the viewpoint
    */
-  override saveBCFViewpoint(cfg = {}) {
+  saveBCFViewpoint(cfg = {}) {
     const viewpoint = super.saveBCFViewpoint(cfg);
     
     // Trigger file download as JSON

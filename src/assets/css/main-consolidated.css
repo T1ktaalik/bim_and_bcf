@@ -16,6 +16,10 @@
 /* Import BIM Viewer styles (Tailwind version) */
 @import "./bim-viewer-tw.css";
 
+:root {
+  --xeokit-gray-bg: #374151; /* bg-gray-700 */
+}
+
 /* Note: We're not importing bim-viewer.css as it's a duplicate of bim-viewer-tw.css
    but using traditional CSS instead of Tailwind */
 
@@ -33,7 +37,7 @@
 
 /* Style explorer buttons to match inspector style */
 .xeokit-explorer-buttons {
-  /* background: rgba(55, 65, 81, 0.5); */
+  background-color: var(--xeokit-gray-bg);
   border-radius: 6px;
   padding: 8px;
   margin-bottom: 8px;
@@ -101,7 +105,7 @@
 
 /* Explorer panel styling to match properties inspector */
 #myExplorer .xeokit-tree-panel {
-  /* background: rgba(55, 65, 81, 0.5); */
+  background-color: var(--xeokit-gray-bg);
   border-radius: 6px;
   padding: 12px;
   margin-top: 8px;
@@ -158,7 +162,7 @@
 }
 
 #myExplorer .xeokit-tree-node:hover {
-  background: rgba(55, 65, 81, 0.7);
+  background-color: var(--xeokit-gray-bg);
 }
 
 #myExplorer .xeokit-tree-node.selected {
@@ -200,7 +204,7 @@
 
 /* Style for inspector header to make it look like a traditional header without button properties */
 .xeokit-properties-header {
-    background: rgba(55, 65, 81, 0.8); /* bg-gray-700/80 */
+    background-color: var(--xeokit-gray-bg);
     color: #d1d5db; /* text-gray-300 */
     border-radius: 6px; /* rounded-md */
     padding: 8px 12px; /* px-3 py-2 */
